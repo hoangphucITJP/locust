@@ -651,7 +651,7 @@ def print_error_report():
 
 
 def error_csv():
-    error_data = ['"%s",%s' % (error.to_name(), error.occurences) for error in six.itervalues(global_stats.errors)]
+    error_data = ['"%s",%s' % (error.to_name().replace('"', "'"), error.occurences) for error in six.itervalues(global_stats.errors)]
     error_data = '\n'.join(error_data)
     error_data = 'Error,Occurences\n' + error_data
     return error_data
