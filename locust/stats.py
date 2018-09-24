@@ -649,6 +649,14 @@ def print_error_report():
     console_logger.info("-" * (80 + STATS_NAME_WIDTH))
     console_logger.info("")
 
+
+def error_csv():
+    error_data = ['"%s",%s' % (error.to_name(), error.occurences) for error in six.itervalues(global_stats.errors)]
+    error_data = '\n'.join(error_data)
+    error_data = 'Error,Occurences\n' + error_data
+    return error_data
+
+
 def stats_printer():
     from . import runners
     while True:
@@ -669,6 +677,9 @@ def write_stat_csvs(base_filepath):
 
     with open(base_filepath + '_distribution.csv', 'w') as f:
         f.write(distribution_csv())
+
+    with open(base_filepath + '_errors.csv', 'w') as f:
+        f.write(error_csv())
 
 
 def sort_stats(stats):
